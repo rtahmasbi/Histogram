@@ -6,4 +6,5 @@
 
 # Compile
 To compile Histogram, go to the directory and run the following commands:
+
     make
