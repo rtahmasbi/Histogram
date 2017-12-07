@@ -98,8 +98,8 @@ int main(int argc, char *argv[])
 
     if(has_file)
     {
-        col_num=col_num-1;
-        if (col_num<0)
+        int col_idx = col_num - 1;
+        if (col_idx<0)
         {
             std::cout << "# Error: column number should be > 1." << std::endl;
             return -1;
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
             std::cout << "# Error: Unable to open file [" << in_file_name << "]" << std::endl;
             return -1;
         }
-        if(col_num>=CommFunc::ras_FileColNumber(in_file_name, sep))
+        if(col_idx>=CommFunc::ras_FileColNumber(in_file_name, sep))
         {
             std::cout << "# Error: Column number is incorrect." << std::endl;
             return -1;
@@ -125,11 +125,12 @@ int main(int argc, char *argv[])
         while (std::getline(ifile,line) )
         {
             std::vector<std::string> arr=CommFunc::split(line,sep);
-            data.push_back(std::stod(arr[col_num]));
+            data.push_back(std::stod(arr[col_idx]));
         }
         ifile.close();
     }
     else{ // read data from stdin
+        int col_idx = col_num - 1;
         if(has_header) // discard the first line
         {
             std::string line;
@@ -139,7 +140,7 @@ int main(int argc, char *argv[])
         for (std::string line; std::getline(std::cin, line);)
         {
             std::vector<std::string> arr=CommFunc::split(line,sep);
-            data.push_back(std::stod(arr[col_num]));
+            data.push_back(std::stod(arr[col_idx]));
         }
     }
     
