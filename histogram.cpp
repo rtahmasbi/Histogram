@@ -50,6 +50,10 @@ int main(int argc, char *argv[])
             ras_help();
             return 0;
         }
+        else if (s=="--sep")
+        {
+            sep = std::string(argv[++i]);
+        }
         else if (s=="--nbin")
         {
             nbin = std::stod(std::string(argv[++i]));
@@ -98,19 +102,20 @@ int main(int argc, char *argv[])
 
     if(has_file)
     {
-        int col_idx = col_num - 1;
-        if (col_idx<0)
-        {
-            std::cout << "# Error: column number should be > 1." << std::endl;
-            return -1;
-        }
         std::ifstream ifile(in_file_name.c_str());
         if (!ifile.is_open())
         {
             std::cout << "# Error: Unable to open file [" << in_file_name << "]" << std::endl;
             return -1;
         }
-        if(col_idx>=CommFunc::ras_FileColNumber(in_file_name, sep))
+
+        int col_idx=col_num-1;
+        if (col_num<=0)
+        {
+            std::cout << "# Error: column number should be > 1." << std::endl;
+            return -1;
+        }
+        if(col_num>CommFunc::ras_FileColNumber(in_file_name, sep))
         {
             std::cout << "# Error: Column number is incorrect." << std::endl;
             return -1;
@@ -131,6 +136,11 @@ int main(int argc, char *argv[])
     }
     else{ // read data from stdin
         int col_idx = col_num - 1;
+        if (col_num<=0)
+        {
+            std::cout << "# Error: column number should be > 1." << std::endl;
+            return -1;
+        }
         if(has_header) // discard the first line
         {
             std::string line;
@@ -243,7 +253,7 @@ int main(int argc, char *argv[])
     {
         //std::cout << data_min+ << hist[ibin] << std::endl;
         printf(binformat.c_str(), data_min+ibin*bin_width, data_min+(ibin+1)*bin_width, hist[ibin]);
-        for (int idots=0; idots<hist[ibin]/dot_count; idots++) printf(dot_symbol.c_str());
+        for (int idots=0; idots<hist[ibin]/dot_count; idots++) printf("%s",dot_symbol.c_str());
         
         printf("\n");
     }
@@ -272,6 +282,7 @@ void ras_help(void)
     
     std::cout << " Parameters:" << std::endl;
     std::cout << "      --file | -f [file]" << std::endl;
+    std::cout << "      --sep [space]; for TAB seperated data use [--sep $'\t']." << std::endl;
     std::cout << "      --nbin [N]" << std::endl;
     std::cout << "      --column | -c [col_number]; default 1" << std::endl;
     std::cout << "      --header" << std::endl;
