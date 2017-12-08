@@ -174,7 +174,12 @@ int main(int argc, char *argv[])
     
     if(has_sammary)
     {
-        if (summary_type=="sum")
+        if (summary_type=="NumSamples")
+        {
+            std::cout << data.size() << std::endl;
+            return 0;
+        }
+        else if (summary_type=="sum")
         {
             std::cout << data_sum << std::endl;
             return 0;
@@ -286,7 +291,7 @@ void ras_help(void)
     std::cout << "      --nbin [N]" << std::endl;
     std::cout << "      --column | -c [col_number]; default 1" << std::endl;
     std::cout << "      --header" << std::endl;
-    std::cout << "      --summary [sum | mean | min | max | var | sd | med]" << std::endl;
+    std::cout << "      --summary [NumSamples | sum | mean | min | max | var | sd | med]" << std::endl;
     std::cout << "      --binformat [\"" << BINFORMAT << "\"]" << std::endl;
     std::cout << "      --help | -h" << std::endl;
     std::cout << "      --maxdots [" << MAXDOTS << "]" << std::endl;
