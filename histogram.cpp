@@ -17,6 +17,7 @@
 #include <cctype> // for isdigit
 #include "CommFunc.h"
 
+
 //defalut values
 #define VER 1.1
 #define BINFORMAT "[%12.6f, %12.6f) |%9u| "
@@ -131,9 +132,10 @@ int main(int argc, char *argv[])
         }
         while (std::getline(ifile,line) )
         {
-            std::vector<std::string> arr=CommFunc::split(line,sep);
-            if (isdigit(arr[col_idx]))
-                data.push_back(std::stod(arr[col_idx]));
+            std::vector<std::string> arr = CommFunc::split(line,sep);
+            std::string s = arr[col_idx];
+            if (isdigit(s[0]))
+                data.push_back(std::stod(s));
             else num_na++;
         }
         ifile.close();
@@ -153,9 +155,10 @@ int main(int argc, char *argv[])
         
         for (std::string line; std::getline(std::cin, line);)
         {
-            std::vector<std::string> arr=CommFunc::split(line,sep);
-            if (isdigit(arr[col_idx]))
-                data.push_back(std::stod(arr[col_idx]));
+            std::vector<std::string> arr = CommFunc::split(line,sep);
+            std::string s = arr[col_idx];
+            if (isdigit(s[0]))
+                data.push_back(std::stod(s));
             else num_na++;
         }
     }
