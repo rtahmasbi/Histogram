@@ -99,6 +99,7 @@ int main(int argc, char *argv[])
     /////////////////////////////////////////////////////////
     // reading data from std::in or a file
     std::vector<double> data;
+    int num_na = 0;
 
     if(has_file)
     {
@@ -130,7 +131,9 @@ int main(int argc, char *argv[])
         while (std::getline(ifile,line) )
         {
             std::vector<std::string> arr=CommFunc::split(line,sep);
-            data.push_back(std::stod(arr[col_idx]));
+            if (isdigit(arr[col_idx]))
+                data.push_back(std::stod(arr[col_idx]));
+            else num_na++;
         }
         ifile.close();
     }
@@ -150,7 +153,9 @@ int main(int argc, char *argv[])
         for (std::string line; std::getline(std::cin, line);)
         {
             std::vector<std::string> arr=CommFunc::split(line,sep);
-            data.push_back(std::stod(arr[col_idx]));
+            if (isdigit(arr[col_idx]))
+                data.push_back(std::stod(arr[col_idx]));
+            else num_na++;
         }
     }
     
@@ -217,6 +222,7 @@ int main(int argc, char *argv[])
     }
     
     std::cout << "# NumSamples = " << data_size << std::endl;
+    std::cout << "# Num NAs    = " << num_na << std::endl;
     std::cout << "# Min        = " << data_min << std::endl;
     std::cout << "# Max        = " << data_max << std::endl;
     std::cout << "# Mean       = " << data_mean << std::endl;
