@@ -14,6 +14,7 @@
 #include <vector>
 #include <cstdio> //for printf
 #include <cmath> // for log2
+#include <cctype> // for isdigit
 #include "CommFunc.h"
 
 //defalut values
