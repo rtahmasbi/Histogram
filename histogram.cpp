@@ -55,6 +55,8 @@ int main(int argc, char *argv[])
         else if (s=="--sep")
         {
             sep = std::string(argv[++i]);
+            if (sep=="tab")
+                sep='\t';
         }
         else if (s=="--nbin")
         {
@@ -297,7 +299,7 @@ void ras_help(void)
     
     std::cout << " Parameters:" << std::endl;
     std::cout << "      --file | -f [file]" << std::endl;
-    std::cout << "      --sep [space]; for TAB seperated data use [--sep $'\t']." << std::endl;
+    std::cout << "      --sep [space]; for TAB seperated data use [--sep $'\\t'], or [--sep tab]." << std::endl;
     std::cout << "      --nbin [N]" << std::endl;
     std::cout << "      --column | -c [col_number]; default 1" << std::endl;
     std::cout << "      --header" << std::endl;
